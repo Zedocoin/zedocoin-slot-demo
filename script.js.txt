@@ -1,0 +1,43 @@
+﻿let balance = 100; // Demo coin başlangıcı
+const slotSymbols = ['🍒', '🍋', '🍊', '7️⃣', '💎'];
+
+const slot1 = document.getElementById('slot1');
+const slot2 = document.getElementById('slot2');
+const slot3 = document.getElementById('slot3');
+const resultDisplay = document.getElementById('result');
+const balanceDisplay = document.getElementById('balance');
+const spinButton = document.getElementById('spinButton');
+
+function spin() {
+  if(balance <= 0) {
+    alert("Demo coin kalmadı!");
+    return;
+  }
+
+  // 3 slotu rastgele seç
+  const s1 = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+  const s2 = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+  const s3 = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+
+  slot1.textContent = s1;
+  slot2.textContent = s2;
+  slot3.textContent = s3;
+
+  // Bahis miktarı
+  const bet = 10;
+  balance -= bet;
+
+  // Kazanç kontrolü (örnek: 3 aynı sembol)
+  if(s1 === s2 && s2 === s3) {
+    const win = bet * 5; // 5x kazanç
+    balance += win;
+    resultDisplay.textContent = `Kazandın! +${win} Zedo`;
+  } else {
+    resultDisplay.textContent = "Kaybettin!";
+  }
+
+  balanceDisplay.textContent = `Demo Coin: ${balance}`;
+}
+
+// Butona tıklandığında spin fonksiyonu çalışacak
+spinButton.addEventListener('click', spin);
